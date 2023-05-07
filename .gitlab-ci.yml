@@ -19,6 +19,11 @@ build_b:
     - echo "이 Job은 다른 무언가를 빌드합니다."
     - sleep 5
 
+# build:
+#   script:
+#     - docker build -t my-image .
+#     - docker push my-image
+
 test_a:
   stage: test
   script:
