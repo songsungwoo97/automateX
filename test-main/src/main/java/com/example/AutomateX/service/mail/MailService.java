@@ -1,7 +1,5 @@
 package com.example.AutomateX.service.mail;
 
-
-import com.example.AutomateX.domain.EmailToken;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -18,7 +16,6 @@ import java.util.Random;
 @Transactional(readOnly = true)
 public class MailService {
 
-    private final com.example.AutomateX.repository.EmailTokenRepository emailTokenRepository;
     private final JavaMailSender emailSender;
 
     private String ePw; //인증 코드
@@ -34,7 +31,7 @@ public class MailService {
         msgg+= "<div style='margin:20px;'>";
         msgg+= "<h1> 안녕하세요 AutomateX입니다. </h1>";
         msgg+= "<br>";
-        msgg+= "<p>아래 코드를 복사해 입력해주세요<p>";
+        msgg+= "<p>아래 번호를 복사해 입력해주세요<p>";
         msgg+= "<br>";
         msgg+= "<p>감사합니다.<p>";
         msgg+= "<br>";
@@ -50,11 +47,11 @@ public class MailService {
         return message;
     }
 
-    public static String createKey() { //인증코드 생성
+    public static String createKey() { //인증번호 생성
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
 
-        for (int i = 0; i < 8; i++) { // 인증코드 8자리
+        for (int i = 0; i < 8; i++) { // 인증번호 8자리
             int index = rnd.nextInt(3); // 0~2 까지 랜덤
 
             switch (index) {
@@ -78,13 +75,11 @@ public class MailService {
     @Transactional
     public String sendMessage(String to) throws MessagingException, UnsupportedEncodingException { //메시지 전송
 
-        ePw = createKey(); // 인증코드 생성
+        ePw = createKey(); // 인증번호 생성
 
         MimeMessage message = createMessage(to); //메일 전송
 
         emailSender.send(message);
-        EmailToken token= new EmailToken(to, ePw);
-        emailTokenRepository.save(token);
 
         return ePw; //인증코드 반환
     }
