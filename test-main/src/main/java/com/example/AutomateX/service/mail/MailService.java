@@ -1,7 +1,7 @@
 package com.example.AutomateX.service.mail;
 
 
-import com.example.AutomateX.domain.EmailToken;
+
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -18,7 +18,6 @@ import java.util.Random;
 @Transactional(readOnly = true)
 public class MailService {
 
-    private final com.example.AutomateX.repository.EmailTokenRepository emailTokenRepository;
     private final JavaMailSender emailSender;
 
     private String ePw; //인증 코드
@@ -58,18 +57,15 @@ public class MailService {
             int index = rnd.nextInt(3); // 0~2 까지 랜덤
 
             switch (index) {
-                case 0:
-                    key.append((char) ((int) (rnd.nextInt(26)) + 97));
-                    //  a~z  (ex. 1+97=98 => (char)98 = 'b')
-                    break;
-                case 1:
-                    key.append((char) ((int) (rnd.nextInt(26)) + 65));
-                    //  A~Z
-                    break;
-                case 2:
-                    key.append((rnd.nextInt(10)));
-                    // 0~9
-                    break;
+                case 0 -> key.append((char) (rnd.nextInt(26) + 97));
+
+                //  a~z  (ex. 1+97=98 => (char)98 = 'b')
+                case 1 -> key.append((char) (rnd.nextInt(26) + 65));
+
+                //  A~Z
+                case 2 -> key.append((rnd.nextInt(10)));
+
+                // 0~9
             }
         }
         return key.toString();
@@ -83,8 +79,6 @@ public class MailService {
         MimeMessage message = createMessage(to); //메일 전송
 
         emailSender.send(message);
-        EmailToken token= new EmailToken(to, ePw);
-        emailTokenRepository.save(token);
 
         return ePw; //인증코드 반환
     }
