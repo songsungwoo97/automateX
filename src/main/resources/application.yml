@@ -1,4 +1,7 @@
-spring:
+spring: # dev 환경
+  config:
+    active:
+      on-profile: dev
   # MySQL
   datasource:
     #driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,6 +16,34 @@ spring:
     show-sql: true # Hibernate/JPA 에 의해 실행되는 SQL문의 로깅을 활성화하는데 사용된다.
     hibernate:
       ddl-auto: create # 자동 데이터베이스 스키마 생성 및 수정 동작을 구성하는데 사용
+    properties:
+      hibernate:
+        format_sql: true # 좀더 sql 문에 맞는 형식으로 전환
+
+  # thymeleaf 템플릿 캐시 비활성화
+  thymeleaf:
+    cache: false
+
+#spring.profiles: dev
+#spring.profiles.include: prod
+
+---
+
+spring:  # prod 환경
+  config:
+    active:
+      on-profile: prod
+  # MySQL
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://springboot-webservice.c0ubd9mnhchu.ap-northeast-2.rds.amazonaws.com:3306/jpa_ex?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: root1234
+
+  jpa:
+    show-sql: false # Hibernate/JPA 에 의해 실행되는 SQL문의 로깅을 활성화하는데 사용된다.
+    hibernate:
+      ddl-auto: update # 자동 데이터베이스 스키마 생성 및 수정 동작을 구성하는데 사용
     properties:
       hibernate:
         format_sql: true # 좀더 sql 문에 맞는 형식으로 전환
