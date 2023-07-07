@@ -48,6 +48,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	//spring mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	// spring security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
@@ -71,7 +74,8 @@ dependencies {
 	testImplementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	implementation 'com.mysql:mysql-connector-j'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
