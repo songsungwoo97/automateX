@@ -21,4 +21,8 @@ spring:
   thymeleaf:
     cache: false
 
+google:
+  id: songsungwoo9200@gmail.com
+  password: jqgvkqynrwkqyftx
+
 
