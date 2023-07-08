@@ -23,3 +23,7 @@ spring:
 
 spring.profiles: dev
 spring.profiles.include: prod
+
+google:
+  id: songsungwoo9200@gmail.com
+  password: jqgvkqynrwkqyftx

@@ -21,5 +21,9 @@ spring:
   thymeleaf:
     cache: false
 
-spring.profiles: dev
-spring.profiles.include: prod
+#spring.profiles: dev
+#spring.profiles.include: prod
+
+google:
+  id: songsungwoo9200@gmail.com
+  password: jqgvkqynrwkqyftx
