@@ -1,39 +1,38 @@
 stages:
   - build
   - test
+  - deploy
 
-image: docker:latest
+# image: docker:latest
+image: amazoncorretto:17
 
-variables:
-  GREETING_MESSAGE: Hello
-
-build_a:
+build:
   stage: build
+  before_script: 
+    - chmod +x ./gradlew # gradlew 실행권한 부여
   script:
-    - echo "$GREETING_MESSAGE, GitLab CI!"
-    - echo "이 Job은 무언가를 빌드합니다."
+    - echo "> 프로젝트 Build 시작"
+    - ./gradlew build
+  artifacts:
+    paths:
+      - build/libs/*.jar # build의 결과물인 jar 파일을 artifacts로 지정
+    expire_in: 1 week # 1주일 동안 보관
 
-build_b:
-  stage: build
-  script:
-    - echo "이 Job은 다른 무언가를 빌드합니다."
-    - sleep 5
-
-# build:
-#   script:
-#     - docker build -t my-image .
-#     - docker push my-image
-
-test_a:
+test:
   stage: test
   script:
-    - echo "이 Job은 무언가를 테스트합니다."
-    - echo "빌드 단계의 모든 Job이 완료된 경우에만 실행됩니다."
+    - echo "> 프로젝트 테스트코드 Test 시작"
+    - ./gradlew test
 
-test_b:
-  stage: test
+deploy-to-server:
+  stage: deploy
+  before_script:
+    # - 'command -v ssh-agent >/dev/null || ( yum update -y && yum install openssh-clients -y )'
+    # - eval $(ssh-agent -s)
+    # - echo "$SSH_PRIVATE_KEY" | ssh-add -
   script:
-    - echo "이 Job은 다른 무언가를 테스트합니다."
-    - echo "이 Job도 빌드 단계의 모든 Job이 완료된 경우에만 실행됩니다."
-    - echo "test_a와 거의 동시에 시작됩니다."
-    - sleep 5
+    # 원격 스크립트 실행
+    # - echo "> 프로젝트 서버 Deploy 시작"
+    # - echo "> DEPLOY_SERVER_IP 는 $DEPLOY_SERVER_IP"
+    # - ssh ec2-user@"$DEPLOY_SERVER_IP" '~/test/deploy.sh'
+
