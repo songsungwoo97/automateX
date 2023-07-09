@@ -26,13 +26,13 @@ test:
 
 deploy-to-server:
   stage: deploy
-  before_script:
+  # before_script:
     # - 'command -v ssh-agent >/dev/null || ( yum update -y && yum install openssh-clients -y )'
     # - eval $(ssh-agent -s)
     # - echo "$SSH_PRIVATE_KEY" | ssh-add -
   script:
     # 원격 스크립트 실행
-    # - echo "> 프로젝트 서버 Deploy 시작"
+    - echo "> 프로젝트 서버 Deploy 시작"
     # - echo "> DEPLOY_SERVER_IP 는 $DEPLOY_SERVER_IP"
     # - ssh ec2-user@"$DEPLOY_SERVER_IP" '~/test/deploy.sh'
 
