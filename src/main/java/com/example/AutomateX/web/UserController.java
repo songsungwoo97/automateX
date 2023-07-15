@@ -59,5 +59,6 @@ public class UserController {
   public LoginResponseDto login(@RequestBody @Valid LoginRequestDto requestDto) {
     return userService.login(requestDto);
   }
+
 }
 
