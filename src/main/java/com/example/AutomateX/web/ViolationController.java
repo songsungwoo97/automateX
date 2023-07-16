@@ -5,6 +5,7 @@ import com.example.AutomateX.web.dto.AnnualViolationCountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class ViolationController {
     private final ViolationService violationService;
 
     @PostMapping("/AnnualViolation")
-    public List<AnnualViolationCountDto> searchAnnualViolation() {
+    public List<AnnualViolationCountDto> searchAnnualViolation(@RequestParam("port") String port) {
 
-        return violationService.calculateAnnualViolationCount();
+        return violationService.calculateAnnualViolationCount(port);
     }
 }
