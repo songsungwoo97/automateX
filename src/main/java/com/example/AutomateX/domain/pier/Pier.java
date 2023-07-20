@@ -1,4 +1,4 @@
-package com.example.AutomateX.domain;
+package com.example.AutomateX.domain.pier;
 
 import com.example.AutomateX.domain.operator.Operator;
 import jakarta.persistence.*;

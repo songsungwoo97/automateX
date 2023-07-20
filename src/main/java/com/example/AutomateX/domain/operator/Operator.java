@@ -1,7 +1,7 @@
 package com.example.AutomateX.domain.operator;
 
-import com.example.AutomateX.domain.Pier;
-import com.example.AutomateX.domain.Violation;
+import com.example.AutomateX.domain.pier.Pier;
+import com.example.AutomateX.domain.violation.Violation;
 import jakarta.persistence.*;
 import lombok.Getter;
 

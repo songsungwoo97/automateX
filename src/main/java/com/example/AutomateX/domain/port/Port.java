@@ -1,7 +1,6 @@
 package com.example.AutomateX.domain.port;
 
 
-import com.example.AutomateX.domain.Pier;
 import com.example.AutomateX.domain.operator.Operator;
 import jakarta.persistence.*;
 import lombok.Getter;

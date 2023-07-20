@@ -22,4 +22,10 @@ public class ViolationController {
 
         return violationService.calculateAnnualViolationCount(port);
     }
+
+    @PostMapping("/monthlyViolation")
+    public List<Integer> searchMonthlyViolation(@RequestParam("pier") String pier) {
+
+        return violationService.calculateMonthlyViolationCount(pier);
+    }
 }
