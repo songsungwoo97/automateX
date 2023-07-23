@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface ViolationRepository extends JpaRepository<Violation, Long> {
 
-    List<Violation> findAllByPier(Pier pier);
+    @Query("SELECT v FROM Violation v WHERE v.pier = :pier AND YEAR(v.dateTime) = :year")
+    List<Violation> findByPierAndYear(@Param("pier") Pier pier, @Param("year") int year);
 
     //년도와 달을 통해 반환
     @Query("SELECT v FROM Violation v WHERE v.pier = :pier AND YEAR(v.dateTime) = :year AND MONTH(v.dateTime) = :month")
-    List<Violation> findByYearAndMonth(@Param("pier") Pier pier, @Param("year") int year, @Param("month") int month);
+    List<Violation> findByPierAndYearAndMonth(@Param("pier") Pier pier, @Param("year") int year, @Param("month") int month);
 }

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,7 +52,9 @@ public class ViolationService {
 
     public List<Integer> calculateMonthlyViolationCount(String pierName) {
 
-        List<Violation> violations = violationRepository.findAllByPier(pierRepository.findByName(pierName));
+        int year = LocalDate.now().getYear();
+        Pier pier = pierRepository.findByName(pierName);
+        List<Violation> violations = violationRepository.findByPierAndYear(pier, year);
 
         int[] monthlyCounts = new int[12];
 
@@ -70,7 +71,7 @@ public class ViolationService {
 
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
-        List<Violation> violations = violationRepository.findByYearAndMonth(pier, year, month);
+        List<Violation> violations = violationRepository.findByPierAndYearAndMonth(pier, year, month);
         return violations.stream()
                 .map(Violation::getViolationType)
                 .collect(Collectors.toList());
