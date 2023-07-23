@@ -38,10 +38,15 @@ public class ViolationService {
         //ex) 울산 본항 안에 있는 모든 운영사
         List<Operator> operators = port.getOperators();
 
+        int year = LocalDate.now().getYear();
+
         //운영사 별 위반 건수
         for (Operator op : operators) {
             String name = op.getName();
-            int violationCnt = op.getViolations().size();
+            //이번 년도의 통계만 카운트
+            int violationCnt = (int) op.getViolations().stream()
+                    .filter(violation -> violation.getDateTime().getYear() == year)
+                    .count();
             AnnualViolationCountDto form = new AnnualViolationCountDto(name, violationCnt);
             annualViolationCountForms.add(form);
         }
