@@ -9,8 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @Schema(description = "이름, 이메일, 이름, 이메일, 비밀번호를 가진 dto class", example = "{\"name\":\"name\",\"email\":\"test@email.com\",\"password\":\"1234\"}")
 public class SignUpRequestDto {

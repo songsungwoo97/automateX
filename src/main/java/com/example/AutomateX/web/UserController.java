@@ -49,8 +49,13 @@ public class UserController {
 
     if (sessionEPw == null) {// 3분이 지나면 세션만료
       return false;
-    } else {
-      return ePw.equals(sessionEPw);
+    }
+    if(ePw.equals(sessionEPw)) {
+      session.invalidate();
+      return true;
+    }
+    else {
+      return false;
     }
   }
 
@@ -59,5 +64,6 @@ public class UserController {
   public LoginResponseDto login(@RequestBody @Valid LoginRequestDto requestDto) {
     return userService.login(requestDto);
   }
+
 }
 
