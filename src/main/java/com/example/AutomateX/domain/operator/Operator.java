@@ -5,6 +5,7 @@ import com.example.AutomateX.domain.violation.Violation;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,8 +19,14 @@ public class Operator {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Pier> piers;
+    private List<Pier> piers = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Violation> violations;
+    private List<Violation> violations = new ArrayList<>();
+
+    public Operator(String name) {
+        this.name = name;
+    }
+
+    public Operator() {}
 }

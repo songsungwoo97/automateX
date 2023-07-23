@@ -5,6 +5,7 @@ import com.example.AutomateX.domain.operator.Operator;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,5 +18,11 @@ public class Port {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Operator> operators;
+    private List<Operator> operators = new ArrayList<>();
+
+    public Port(String name) {
+        this.name = name;
+    }
+
+    public Port() {}
 }

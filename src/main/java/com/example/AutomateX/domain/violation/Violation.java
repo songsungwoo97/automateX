@@ -28,4 +28,14 @@ public class Violation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pier_id")
     private Pier pier;
+
+    public Violation(String violationType, LocalDateTime dateTime, Operator operator, Pier pier) {
+
+        this.violationType = violationType;
+        this.dateTime = dateTime;
+        this.operator = operator;
+        this.pier = pier;
+    }
+
+    public Violation() {}
 }

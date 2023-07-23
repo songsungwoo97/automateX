@@ -43,7 +43,7 @@ spring:  # prod 환경
   jpa:
     show-sql: false # Hibernate/JPA 에 의해 실행되는 SQL문의 로깅을 활성화하는데 사용된다.
     hibernate:
-      ddl-auto: update # 자동 데이터베이스 스키마 생성 및 수정 동작을 구성하는데 사용
+      ddl-auto: create # 자동 데이터베이스 스키마 생성 및 수정 동작을 구성하는데 사용
     properties:
       hibernate:
         format_sql: true # 좀더 sql 문에 맞는 형식으로 전환

@@ -1,4 +1,4 @@
-package com.example.AutomateX.service;
+package com.example.AutomateX.service.violation;
 
 import com.example.AutomateX.domain.operator.Operator;
 import com.example.AutomateX.domain.operator.OperatorRepository;
@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 public class ViolationService {
 
     private final PortRepository portRepository;
-    private final OperatorRepository operatorRepository;
+    private final PierRepository pierRepository;
     private final ViolationRepository violationRepository;
 
     public List<AnnualViolationCountDto> calculateAnnualViolationCount(String portName) { //운영사 별 위반건수
@@ -41,7 +43,6 @@ public class ViolationService {
         for (Operator op : operators) {
             String name = op.getName();
             int violationCnt = op.getViolations().size();
-
             AnnualViolationCountDto form = new AnnualViolationCountDto(name, violationCnt);
             annualViolationCountForms.add(form);
         }
@@ -52,15 +53,27 @@ public class ViolationService {
 
     public List<Integer> calculateMonthlyViolationCount(String pierName) {
 
-        List<Violation> violations = violationRepository.findAllByPier(pierName);
+        List<Violation> violations = violationRepository.findAllByPier(pierRepository.findByName(pierName));
 
         int[] monthlyCounts = new int[12];
 
         for (Violation violation : violations) {
-            int month = violation.getDateTime().getMonthValue() - 1; // MonthValue는 1부터 시작하므로 0부터 시작하게 -1을 해줌
+            int month = violation.getDateTime().getMonthValue() - 1; // 월은 1부터 시작하므로 0부터 시작하게 -1을 해줌
             monthlyCounts[month]++;
         }
-        return Arrays.stream(monthlyCounts).boxed().collect(Collectors.toList());
+        return Arrays.stream(monthlyCounts).boxed().collect(Collectors.toList()); //배열을 리스트로 변환
+    }
+
+    public List<String> searchNewViolation(String pierName) {
+
+        Pier pier = pierRepository.findByName(pierName);
+
+        int year = LocalDate.now().getYear();
+        int month = LocalDate.now().getMonthValue();
+        List<Violation> violations = violationRepository.findByYearAndMonth(pier, year, month);
+        return violations.stream()
+                .map(Violation::getViolationType)
+                .collect(Collectors.toList());
     }
 }
 
