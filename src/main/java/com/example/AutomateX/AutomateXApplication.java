@@ -13,7 +13,7 @@ public class AutomateXApplication {
 		SpringApplication.run(AutomateXApplication.class, args);
 	}
 
-	@Bean
+	@Bean // WebMvcConfigurer 인터페이스를 구현한 객체를 빈으로 등록
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
