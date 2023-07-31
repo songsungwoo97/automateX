@@ -16,8 +16,9 @@ public class SignificantService {
 
     private final SignificantRepository significantRepository;
 
-    public List<SignificantResponseDto> searchSignificantList(SignificantRequestDto requestDto) {
+/*    public List<SignificantResponseDto> searchSignificantList(SignificantRequestDto requestDto) {
 
         
     }
+ */
 }

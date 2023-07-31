@@ -17,9 +17,11 @@ public class SignificantController {
 
     private final SignificantService significantService;
 
-   @PostMapping("/significantlist")
+/*   @PostMapping("/significantlist")
     public List<SignificantResponseDto> getSignificantList(@RequestBody SignificantRequestDto requestDto) {
 
         return significantService.searchSignificantList(requestDto);
     }
+
+ */
 }
