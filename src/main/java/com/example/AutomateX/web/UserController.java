@@ -3,10 +3,7 @@ package com.example.AutomateX.web;
 import com.example.AutomateX.service.mail.MailService;
 import com.example.AutomateX.service.user.UserService;
 
-import com.example.AutomateX.web.dto.LoginRequestDto;
-import com.example.AutomateX.web.dto.LoginResponseDto;
-import com.example.AutomateX.web.dto.SignUpRequestDto;
-import com.example.AutomateX.web.dto.SignUpResponseDto;
+import com.example.AutomateX.web.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
@@ -47,13 +44,13 @@ public class UserController {
   //인증번호를 체크
   @Operation(summary = "인증번호 검증", description = "이메일로 전송받은 인증번호를 검증한다.")
   @PostMapping("/verify")
-  public boolean verifyEPw(@RequestBody String ePw, HttpSession session) {
+  public boolean verifyEPw(@RequestBody EPwRequest request, HttpSession session) {
     String sessionEPw = (String) session.getAttribute("verificationEPw");
 
     if (sessionEPw == null) {// 3분이 지나면 세션만료
       return false;
     }
-    if(ePw.equals(sessionEPw)) {
+    if(request.getEPw().equals(sessionEPw)) {
       session.invalidate();
       return true;
     }
