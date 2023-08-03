@@ -35,11 +35,11 @@ public class Account extends BaseTimeEntity {
   private Role role;
 
   @Builder
-  public Account(String name, String email, String password) {
+  public Account(String name, String email, String password, Role role) {
     this.id = UUID.randomUUID();
     this.name = name;
     this.email = email;
     this.password = password;
-    this.role = Role.USER;
+    this.role = role;
   }
 }
