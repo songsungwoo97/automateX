@@ -21,7 +21,6 @@ public class ViolationController {
     @Operation(summary = "운영사들의 위반사항 수", description = "항구의 이름을 받아 올해 운영사별 위반건수를 반환한다.")
     @PostMapping("/annualViolation")
     public List<AnnualViolationCountDto> getAnnualViolation(@RequestBody String port) {
-        principle
 
         return violationService.calculateAnnualViolationCount(port);
     }
