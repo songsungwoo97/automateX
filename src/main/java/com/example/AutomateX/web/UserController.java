@@ -3,10 +3,7 @@ package com.example.AutomateX.web;
 import com.example.AutomateX.service.mail.MailService;
 import com.example.AutomateX.service.user.UserService;
 
-import com.example.AutomateX.web.dto.LoginRequestDto;
-import com.example.AutomateX.web.dto.LoginResponseDto;
-import com.example.AutomateX.web.dto.SignUpRequestDto;
-import com.example.AutomateX.web.dto.SignUpResponseDto;
+import com.example.AutomateX.web.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
@@ -36,7 +33,7 @@ public class UserController {
   @Operation(summary = "인증번호 전송", description = "입력받은 이메일로 인증번호를 전송한다.")
   //이메일에 인증번호를 전송
   @GetMapping("/email")
-  public String sendMail(@RequestParam("email") String email, HttpSession session) throws MessagingException, UnsupportedEncodingException {
+  public String sendMail(@RequestBody String email, HttpSession session) throws MessagingException, UnsupportedEncodingException {
 
     String verificationEPw = mailService.sendMessage(email);
     session.setMaxInactiveInterval(3 * 60); //3분 후에 세션 만료
@@ -47,13 +44,13 @@ public class UserController {
   //인증번호를 체크
   @Operation(summary = "인증번호 검증", description = "이메일로 전송받은 인증번호를 검증한다.")
   @PostMapping("/verify")
-  public boolean verifyEPw(@RequestParam("ePw") String ePw, HttpSession session) {
+  public boolean verifyEPw(@RequestBody EPwRequest request, HttpSession session) {
     String sessionEPw = (String) session.getAttribute("verificationEPw");
 
     if (sessionEPw == null) {// 3분이 지나면 세션만료
       return false;
     }
-    if(ePw.equals(sessionEPw)) {
+    if(request.getEPw().equals(sessionEPw)) {
       session.invalidate();
       return true;
     }

@@ -30,6 +30,8 @@ public class ViolationService {
 
     public List<AnnualViolationCountDto> calculateAnnualViolationCount(String portName) { //운영사 별 위반건수
 
+        System.out.println(portName);
+
         //ex) 울산 본항
         Port port = portRepository.findByName(portName);
 

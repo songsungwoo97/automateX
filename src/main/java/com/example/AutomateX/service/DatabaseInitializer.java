@@ -30,10 +30,10 @@ public class DatabaseInitializer implements CommandLineRunner {
         entityManager.persist(port);
 
         // Create Operators
-        Operator operatorAaa = new Operator("aaa");
-        Operator operatorBbb = new Operator("bbb");
-        Operator operatorCcc = new Operator("ccc");
-        Operator operatorDdd = new Operator("ddd");
+        Operator operatorAaa = new Operator("신흥사");
+        Operator operatorBbb = new Operator("고려항만");
+        Operator operatorCcc = new Operator("울산항만운영");
+        Operator operatorDdd = new Operator("한국보팔터미날");
 
         // Associate Operators with Port
         port.getOperators().addAll(Arrays.asList(operatorAaa, operatorBbb, operatorCcc, operatorDdd));
