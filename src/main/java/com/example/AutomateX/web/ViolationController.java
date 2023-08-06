@@ -23,19 +23,19 @@ public class ViolationController {
     private final ViolationService violationService;
 
     @Operation(summary = "운영사들의 위반사항 수", description = "항구의 이름을 받아 올해 운영사별 위반건수를 반환한다.")
-    @PostMapping("/annualViolation")
-    public List<AnnualViolationCountDto> getAnnualViolation(@RequestBody PortRequest request) {
+    @GetMapping("/annualViolation")
+    public List<AnnualViolationCountDto> getAnnualViolation(@RequestParam String port) {
 
-        return violationService.calculateAnnualViolationCount(request.getPort());
+        return violationService.calculateAnnualViolationCount(port);
     }
 
 
 
     @Operation(summary = "월별 부두의 위반사항 수", description = "부두의 이름을 받아 이번 년도의 월별 위반사항 건수를 반환한다.")
-    @PostMapping("/monthlyViolation")
-    public List<Integer> getMonthlyViolation(@RequestBody PierRequest request) {
+    @GetMapping("/monthlyViolation")
+    public List<Integer> getMonthlyViolation(@RequestParam String pier) {
 
-        return violationService.calculateMonthlyViolationCount(request.getPier());
+        return violationService.calculateMonthlyViolationCount(pier);
     }
 
 
