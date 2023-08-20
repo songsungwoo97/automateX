@@ -17,14 +17,12 @@ build:
     paths:
       - build/libs/*.jar
     expire_in: 1 week  
-  when: manual
   only:
       - main
 
 test:
   stage: test
   script: ./gradlew test
-  when: manual
 
 
 deploy-to-ec2:
