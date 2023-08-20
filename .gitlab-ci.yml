@@ -16,13 +16,15 @@ build:
   artifacts:
     paths:
       - build/libs/*.jar
-    expire_in: 1 week
+    expire_in: 1 week  
+  when: manual
   only:
       - main
 
 test:
   stage: test
   script: ./gradlew test
+  when: manual
 
 
 deploy-to-ec2:
@@ -38,6 +40,5 @@ deploy-to-ec2:
 
   script:
     - ssh -o StrictHostKeyChecking=no -i "$SSH_KEY" ec2-user@"$DEPLOY_SERVER_IP" 'bash ~/test/deploy.sh'
-  when: on_success
   only: 
     - main
