@@ -1,38 +1,42 @@
+image: amazoncorretto:17
+
 stages:
   - build
   - test
   - deploy
 
-# image: docker:latest
-image: amazoncorretto:17
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
 
 build:
   stage: build
-  before_script: 
-    - chmod +x ./gradlew # gradlew 실행권한 부여
-  script:
-    - echo "> 프로젝트 Build 시작"
-    - ./gradlew build
+  script: ./gradlew clean build
   artifacts:
     paths:
-      - build/libs/*.jar # build의 결과물인 jar 파일을 artifacts로 지정
-    expire_in: 1 week # 1주일 동안 보관
+      - build/libs/*.jar
+    expire_in: 1 week  
+  only:
+      - main
 
 test:
   stage: test
+  script: ./gradlew test
+
+
+deploy-to-ec2:
+  stage: deploy
+  before_script:
+    - command -v ssh-agent >/dev/null || ( yum update -y && yum install -y openssh-clients )  # openssh-clients 패키지 설치
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
   script:
-    - echo "> 프로젝트 테스트코드 Test 시작"
-    - ./gradlew test
-
-#deploy-to-server:
-#  stage: deploy
-  # before_script:
-    # - 'command -v ssh-agent >/dev/null || ( yum update -y && yum install openssh-clients -y )'
-    # - eval $(ssh-agent -s)
-    # - echo "$SSH_PRIVATE_KEY" | ssh-add -
-#  script:
-    # 원격 스크립트 실행
-#    - echo "> 프로젝트 서버 Deploy 시작"
-    # - echo "> DEPLOY_SERVER_IP 는 $DEPLOY_SERVER_IP"
-    # - ssh ec2-user@"$DEPLOY_SERVER_IP" '~/test/deploy.sh'
-
+    - ssh -o StrictHostKeyChecking=no -i "$SSH_KEY" ec2-user@"$DEPLOY_SERVER_IP" 'bash ~/test/deploy.sh'
+  only: 
+    - main
