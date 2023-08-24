@@ -1,6 +1,7 @@
 package com.example.AutomateX.web.dto;
 
 import com.example.AutomateX.domain.user.Account;
+import com.example.AutomateX.domain.user.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,8 +25,10 @@ public class SignUpRequestDto {
   @Schema(defaultValue = "비밀번호")
   private String password;
 
+  private Role role;
+
   @Builder
-  public SignUpRequestDto(String name, String email, String password) {
+  public SignUpRequestDto(String name, String email, String password, Role role) {
     this.name = name;
     this.email = email;
     this.password = password;
@@ -33,9 +36,10 @@ public class SignUpRequestDto {
 
   public Account toEntity() {
     return Account.builder()
-        .name(name)
-        .email(email)
-        .password(password)
-        .build();
+            .name(name)
+            .email(email)
+            .password(password)
+            .role(role)
+            .build();
   }
 }

@@ -9,9 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SignificantRequestDto {
 
-    private String dataType;
-
     private String port;
 
     private String pier;
+
+    private String start;
+
+    private String end;
 }

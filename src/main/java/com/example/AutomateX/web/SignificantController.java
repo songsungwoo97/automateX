@@ -1,5 +1,6 @@
 package com.example.AutomateX.web;
 
+import com.example.AutomateX.domain.significant.Significant;
 import com.example.AutomateX.service.significant.SignificantService;
 import com.example.AutomateX.web.dto.SignificantRequestDto;
 import com.example.AutomateX.web.dto.SignificantResponseDto;
@@ -17,11 +18,11 @@ public class SignificantController {
 
     private final SignificantService significantService;
 
-/*   @PostMapping("/significantlist")
+   @PostMapping("/significantlist")
     public List<SignificantResponseDto> getSignificantList(@RequestBody SignificantRequestDto requestDto) {
 
         return significantService.searchSignificantList(requestDto);
     }
 
- */
+
 }
