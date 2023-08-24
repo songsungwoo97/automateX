@@ -1,6 +1,7 @@
 package com.example.AutomateX.domain.pier;
 
 import com.example.AutomateX.domain.operator.Operator;
+import com.example.AutomateX.domain.significant.Significant;
 import com.example.AutomateX.domain.violation.Violation;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,6 +20,9 @@ public class Pier {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Violation> violations = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Significant> significants = new ArrayList<>();
 
     public Pier(String name) {
         this.name = name;
