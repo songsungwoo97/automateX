@@ -4,10 +4,11 @@ import com.example.AutomateX.domain.pier.Pier;
 import com.example.AutomateX.domain.port.Port;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Getter @Setter
 @Entity
 public class Significant {
 
@@ -37,4 +38,20 @@ public class Significant {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pier_id")
     private Pier pier;
+
+    public Significant(LocalDateTime arrivalScheduledTime, String expectedVessel, String callSign, String vesselName, String purposeOfArrival, String stevedore, String cargoName, int cargoTonnage) {
+
+        this.arrivalScheduledTime = arrivalScheduledTime;
+        this.expectedVessel = expectedVessel;
+        this.callSign = callSign;
+        this.vesselName = vesselName;
+        this.purposeOfArrival = purposeOfArrival;
+        this.stevedore = stevedore;
+        this.cargoName = cargoName;
+        this.cargoTonnage = cargoTonnage;
+    }
+
+    public Significant() {
+
+    }
 }
