@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor
-@Schema(description = "이름, 이메일, 비밀번호를 가진 dto class", example = "{\"name\":\"name\",\"email\":\"test@email.com\",\"password\":\"1234\"}")
+@Schema(description = "이름, 이메일, 비밀번호, 소속을 가진 dto class", example = "{\"name\":\"name\",\"email\":\"test@email.com\",\"password\":\"1234\",\"role\":\"USER\"}")
 public class SignUpRequestDto {
   @NotBlank(message = "사용자 이름은 필수항목입니다.")
   @Schema(defaultValue = "이름")
@@ -25,6 +25,8 @@ public class SignUpRequestDto {
   @Schema(defaultValue = "비밀번호")
   private String password;
 
+
+  @Schema(defaultValue = "USER")
   private Role role;
 
   @Builder

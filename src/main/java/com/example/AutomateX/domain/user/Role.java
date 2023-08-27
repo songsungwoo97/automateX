@@ -1,5 +1,7 @@
 package com.example.AutomateX.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,5 +20,4 @@ public enum Role {
   private final String key;
   private final String title;
   private final boolean canViewAllInfo; //모든 열람 권한 = true
-
 }
