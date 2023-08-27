@@ -34,11 +34,13 @@ public class UserRepositoryTest {
     String name = "테스트 이름";
     String email = "테스트 이메일";
     String password = "테스트 비밀번호";
+    Role role = Role.USER;
 
     userRepository.save(Account.builder()
         .name(name)
         .email(email)
         .password(password)
+        .role(role)
         .build());
 
     //when
@@ -65,6 +67,7 @@ public class UserRepositoryTest {
         .name(name)
         .email(email)
         .password(password)
+        .role(role)
         .build());
 
     // when
@@ -91,6 +94,7 @@ public class UserRepositoryTest {
         .name(name)
         .email(email)
         .password(password)
+        .role(role)
         .build());
 
     // when
