@@ -24,7 +24,7 @@ public class UserController {
   private final UserService userService;
   private final MailService mailService;
 
-  @Operation(summary = "회원 가입", description = "이름, 이메일, 비밀번호, 인증번호를 전달받아 회원가입을 진행한다. JWT 토큰 및 유저 정보를 반환한다.")
+  @Operation(summary = "회원 가입", description = "이름, 이메일, 비밀번호, 소속을 전달받아 회원가입을 진행한다. JWT 토큰 및 유저 정보를 반환한다.")
   @PostMapping("/join")
   public SignUpResponseDto signUp(@RequestBody @Valid SignUpRequestDto requestDto) {
     return userService.signUp(requestDto);
