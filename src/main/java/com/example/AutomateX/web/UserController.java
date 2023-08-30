@@ -34,7 +34,6 @@ public class UserController {
   //이메일에 인증번호를 전송
   @PostMapping("/email")
   public String sendMail(@RequestBody EmailRequest request, HttpSession session) throws MessagingException, UnsupportedEncodingException {
-    session.invalidate();
 
     String verificationEPw = mailService.sendMessage(request.getEmail());
     session.setMaxInactiveInterval(3 * 60); //3분 후에 세션 만료

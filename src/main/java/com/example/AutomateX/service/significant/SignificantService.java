@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -22,18 +23,21 @@ public class SignificantService {
 
     public List<SignificantResponseDto> searchSignificantList(SignificantRequestDto requestDto) {
 
-        String tmp_start = requestDto.getStart();
-        String tmp_end = requestDto.getEnd();
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        LocalDateTime start = LocalDateTime.parse(tmp_start, formatter);
-        LocalDateTime end = LocalDateTime.parse(tmp_end, formatter);
+        LocalDate startDate = LocalDate.parse(requestDto.getStart(), formatter);
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+
+        LocalDate endDate = LocalDate.parse(requestDto.getEnd(), formatter);
+        LocalDateTime endDateTime = endDate.atStartOfDay();
+
+        //LocalDate start = LocalDate.parse(requestDto.getStart());
+        //LocalDate end = LocalDate.parse(requestDto.getEnd());
 
         String port = requestDto.getPort();
         String pier = requestDto.getPier();
 
-        List<Significant> significants = significantRepository.findSignificants(start, end, port, pier);
+        List<Significant> significants = significantRepository.findSignificants(startDateTime, endDateTime, port, pier);
 
         return significants.stream()
                 .map(SignificantResponseDto::new)
