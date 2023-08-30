@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SignificantRepository extends JpaRepository<Significant, Long> {
 
-    @Query("SELECT s FROM Significant s WHERE s.arrivalScheduledTime BETWEEN :start AND :end AND s.port = :port AND s.pier = :pier")
+    @Query("SELECT s FROM Significant s WHERE s.arrivalScheduledTime BETWEEN :start AND :end AND s.port.name = :port AND s.pier.name = :pier")
     List<Significant> findSignificants(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("port") String port, @Param("pier") String pier);
 
 }
