@@ -25,7 +25,7 @@ public class SignUpRequestDto {
   @Schema(defaultValue = "비밀번호")
   private String password;
 
-
+  @NotBlank(message = "소속은 필수항목입니다.")
   @Schema(defaultValue = "USER")
   private Role role;
 
@@ -34,6 +34,7 @@ public class SignUpRequestDto {
     this.name = name;
     this.email = email;
     this.password = password;
+    this.role = role;
   }
 
   public Account toEntity() {
