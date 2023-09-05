@@ -12,6 +12,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
 @Tag(name = "user API", description = "유저 API")
@@ -30,15 +32,22 @@ public class UserController {
     return userService.signUp(requestDto);
   }
 
-  @Operation(summary = "인증번호 전송", description = "입력받은 이메일로 인증번호를 전송한다.")
+  @Operation(summary = "인증번호 전송", description = "입력받은 이메일로 인증번호를 전송한다. 오류를 수정했다.")
   //이메일에 인증번호를 전송
   @PostMapping("/email")
   public String sendMail(@RequestBody EmailRequest request, HttpSession session) throws MessagingException, UnsupportedEncodingException {
 
-    String verificationEPw = mailService.sendMessage(request.getEmail());
-    session.setMaxInactiveInterval(3 * 60); //3분 후에 세션 만료
-    session.setAttribute("verificationEPw", verificationEPw);
-    return verificationEPw;
+    try {
+      String verificationEPw = mailService.sendMessage(request.getEmail());
+      session.setMaxInactiveInterval(3 * 60); //3분 후에 세션 만료
+      session.setAttribute("verificationEPw", verificationEPw);
+      return verificationEPw;
+    }
+    catch (Exception e) {
+      StringWriter error = new StringWriter();
+      e.printStackTrace(new PrintWriter(error));
+      return error.toString();
+    }
   }
 
   //인증번호를 체크
